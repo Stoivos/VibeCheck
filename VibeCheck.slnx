@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="vibecheck.client/vibecheck.client.esproj">
+    <Build />
+    <Deploy />
+  </Project>
+  <Project Path="VibeCheck.Server/VibeCheck.Server.csproj" />
+</Solution>
