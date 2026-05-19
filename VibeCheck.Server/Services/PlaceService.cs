@@ -53,6 +53,7 @@ public class PlaceService
     // READ ALL
     public async Task<List<Places>> GetAllPlacesAsync()
     {
+        // Debug log to check if method is called and count of places in DB
         var count = await _db.Places.CountAsync();
         Console.WriteLine($"DB Places count: {count}");
 

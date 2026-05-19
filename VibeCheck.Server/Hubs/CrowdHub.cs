@@ -24,6 +24,7 @@ namespace VibeCheck.Server.Hubs
         // Send position from client, find closest place and update presence
         public async Task SendPosition(string sessionId, double lat, double lng)
         {
+            // debug log
             Console.WriteLine("SendPosition HIT");
             var places = await _placeService.GetAllPlacesAsync();
 
