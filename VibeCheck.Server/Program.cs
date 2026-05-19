@@ -1,4 +1,6 @@
 using VibeCheck.Server.Hubs;
+using Microsoft.EntityFrameworkCore;
+using VibeCheck.Server.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,8 +13,13 @@ builder.Services.AddOpenApi();
 // SignalR
 builder.Services.AddSignalR();
 
+builder.Services.AddDbContext<VibeCheckDbContext>(options =>
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection")));
+
 // CORS (för React)
 builder.Services.AddCors(options =>
+
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
