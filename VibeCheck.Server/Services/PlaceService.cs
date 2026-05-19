@@ -9,6 +9,34 @@ public class PlaceService
 {
     private readonly VibeCheckDbContext _db;
 
+    private readonly List<Places> _places = new()
+    {
+        new Places
+        {
+            Id = 1,
+            Name = "Rex",
+            Latitude = 63.8258,
+            Longitude = 20.2630,
+            RadiusMeters = 80
+        },
+        new Places
+        {
+            Id = 2,
+            Name = "Allstar",
+            Latitude = 63.8265,
+            Longitude = 20.2655,
+            RadiusMeters = 80
+        },
+        new Places
+        {
+            Id = 3,
+            Name = "O'Learys",
+            Latitude = 63.8249,
+            Longitude = 20.2612,
+            RadiusMeters = 80
+        }
+    };
+
     public PlaceService(VibeCheckDbContext db)
     {
         _db = db;
@@ -23,8 +51,25 @@ public class PlaceService
     }
 
     // READ ALL
-    public async Task<List<Places>> GetAllAsync()
+    public async Task<List<Places>> GetAllPlacesAsync()
     {
+        var count = await _db.Places.CountAsync();
+        Console.WriteLine($"DB Places count: {count}");
+
+        var exists = await _db.Places.AnyAsync();
+
+        if (!exists)
+        {
+            _db.Places.AddRange(new List<Places>
+        {
+            new() { Name = "Rex", Latitude = 63.8258, Longitude = 20.2630, RadiusMeters = 80 },
+            new() { Name = "Allstar", Latitude = 63.8265, Longitude = 20.2655, RadiusMeters = 80 },
+            new() { Name = "O'Learys", Latitude = 63.8249, Longitude = 20.2612, RadiusMeters = 80 }
+        });
+
+            await _db.SaveChangesAsync();
+        }
+
         return await _db.Places.ToListAsync();
     }
 

@@ -22,9 +22,10 @@ namespace VibeCheck.Server.Hubs
         }
 
         // Send position from client, find closest place and update presence
-        public async Task SendPostition(string sessionId, double lat, double lng)
+        public async Task SendPosition(string sessionId, double lat, double lng)
         {
-            var places = await _placeService.GetAllAsync();
+            Console.WriteLine("SendPosition HIT");
+            var places = await _placeService.GetAllPlacesAsync();
 
             var closestPlace = places
                         .OrderBy(p =>
@@ -41,7 +42,7 @@ namespace VibeCheck.Server.Hubs
 
 
                 // All clients will see update for this place
-                await Clients.All.SendAsync("RecieveCrowdUpdate", new
+                await Clients.All.SendAsync("ReceiveCrowdUpdate", new
                 {
                     placeId = closestPlace.Id,
                     placeName = closestPlace.Name,
