@@ -1,6 +1,7 @@
-using VibeCheck.Server.Hubs;
 using Microsoft.EntityFrameworkCore;
 using VibeCheck.Server.Data;
+using VibeCheck.Server.Hubs;
+using VibeCheck.Server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,10 @@ builder.Services.AddOpenApi();
 
 // SignalR
 builder.Services.AddSignalR();
+
+// Dependency för services och injektion
+builder.Services.AddScoped<PlaceService>();
+builder.Services.AddScoped<PresenceService>();
 
 builder.Services.AddDbContext<VibeCheckDbContext>(options =>
     options.UseSqlServer(

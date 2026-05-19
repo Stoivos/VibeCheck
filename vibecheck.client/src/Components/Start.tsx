@@ -1,43 +1,17 @@
-import { useEffect } from "react";
-import * as signalR from "@microsoft/signalr";
-import "./Start.css";
+import { useCrowdHub } from "../Hooks/useCrowdHub";
 
 function Start() {
-    
-    useEffect(() => {
 
-        const conn = new signalR.HubConnectionBuilder()
-            .withUrl("/crowdhub")
-            .withAutomaticReconnect()
-            .build();
+    const { crowd } = useCrowdHub();
 
-        const startConnection = async () => {
-            try {
-                await conn.start();
-                console.log("SignalR connected!");
-
-                conn.on("Connected", (msg) => {
-                    console.log("From server:", msg);
-                });
-
-            } catch (err) {
-                console.error("Connection failed:", err);
-            }
-        };
-
-        startConnection();
-
-        return () => {
-            conn.stop();
-        };
-    }, []);
-
-
-    // Html and UI.
     return (
+        <div>
+            <h1>Vibecheck</h1>
 
-        <p>Hello world!</p>
+            <p>Hello world!</p>
 
+            <pre>{JSON.stringify(crowd, null, 2)}</pre>
+        </div>
     );
 }
 
