@@ -21,9 +21,14 @@ namespace VibeCheck.Server.Hubs
             await base.OnConnectedAsync();
         }
 
+      
+
         // Send position from client, find closest place and update presence
         public async Task SendPosition(string sessionId, double lat, double lng)
         {
+            // Cleanup old presence records
+            await _presenceService.CleanupAsync();
+
             // debug log
             Console.WriteLine("SendPosition HIT");
             var places = await _placeService.GetAllPlacesAsync();
@@ -36,20 +41,20 @@ namespace VibeCheck.Server.Hubs
 
             if (closestPlace != null)
             {
-
                 await _presenceService.UpdatePresenceAsync(sessionId, closestPlace.Id);
+            }
 
-                var count = await _presenceService.GetCountForPlace(closestPlace.Id);
+            // Send updates for ALL places
+            foreach (var place in places)
+            {
+                var count = await _presenceService.GetCountForPlace(place.Id);
 
-
-                // All clients will see update for this place
                 await Clients.All.SendAsync("ReceiveCrowdUpdate", new
                 {
-                    placeId = closestPlace.Id,
-                    placeName = closestPlace.Name,
+                    placeId = place.Id,
+                    placeName = place.Name,
                     count
                 });
-
             }
         }
     }

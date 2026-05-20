@@ -38,6 +38,7 @@ return (
                 <h2>Live crowd</h2>
 
                 {/* List of places */}
+                
                 <div className="places">
                     {crowd.map((p) => (
                         <div key={p.placeId} className="place-card">

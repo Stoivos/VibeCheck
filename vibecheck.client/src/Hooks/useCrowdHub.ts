@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useMemo } from "react";
 import { connection } from "../Services/crowdHub";
 import { useLocation } from "./useLocation";
 
@@ -13,7 +13,7 @@ export function useCrowdHub() {
     const [crowd, setCrowd] = useState<CrowdUpdate[]>([]);
     const { position } = useLocation();
 
-    const sessionId = crypto.randomUUID();
+    const sessionId = useRef(crypto.randomUUID()).current;
 
     useEffect(() => {
 
@@ -24,9 +24,11 @@ export function useCrowdHub() {
                 }
                 console.log("SignalR connected");
 
+                //cleanup before
+                connection.off("ReceiveCrowdUpdate");
                 // Listeners to hub events.
                 connection.on("ReceiveCrowdUpdate", (data: CrowdUpdate) => {
-                    console.log("RAW DATA:", data);
+                    console.log("Received crowd update:", data);
                     setCrowd(prev => {
                         const filtered = prev.filter(x => x.placeId !== data.placeId);
                         return [...filtered, data];
@@ -49,18 +51,32 @@ export function useCrowdHub() {
     useEffect(() => {
         if (!position) return;
 
-        const interval = setInterval(() => {
-            connection.invoke(
-                "SendPosition",
-                sessionId,
-                position.latitude,
-                position.longitude
-            );
+        const interval = setInterval(async () => {
+            if (connection.state !== "Connected") {
+                console.warn("SignalR inte connected, state:", connection.state);
+                return;
+            }
+
+            try {
+                await connection.invoke(
+                    "SendPosition",
+                    sessionId,
+                    position.latitude,
+                    position.longitude
+                );
+            } catch (err) {
+                console.error("Invoke-fel:", err);
+            }
         }, 5000);
 
         return () => clearInterval(interval);
 
     }, [position]);
 
-    return { crowd };
+    // Sort crowd by count (most to least)
+    const sortedCrowd = useMemo(() => {
+        return [...crowd].sort((a, b) => b.count - a.count);
+    }, [crowd]);
+
+    return { crowd: sortedCrowd };
 }
