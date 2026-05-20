@@ -17,11 +17,22 @@ namespace VibeCheck.Server.Hubs
         // Test connection
         public override async Task OnConnectedAsync()
         {
-            await Clients.Caller.SendAsync("Connected", "Connected to CrowdHub");
+            var places = await _placeService.GetAllPlacesAsync();
+            foreach (var place in places)
+            {
+                var count = await _presenceService.GetCountForPlace(place.Id);
+                await Clients.Caller.SendAsync("ReceiveCrowdUpdate", new
+                {
+                    placeId = place.Id,
+                    placeName = place.Name,
+                    count,
+                    imageUrl = place.ImageUrl
+                });
+            }
             await base.OnConnectedAsync();
         }
 
-      
+
 
         // Send position from client, find closest place and update presence
         public async Task SendPosition(string sessionId, double lat, double lng)
@@ -29,9 +40,9 @@ namespace VibeCheck.Server.Hubs
             // Cleanup old presence records
             await _presenceService.CleanupAsync();
 
-            // debug log
-            Console.WriteLine("SendPosition HIT");
+
             var places = await _placeService.GetAllPlacesAsync();
+
 
             var closestPlace = places
                         .OrderBy(p =>
@@ -42,6 +53,13 @@ namespace VibeCheck.Server.Hubs
             if (closestPlace != null)
             {
                 await _presenceService.UpdatePresenceAsync(sessionId, closestPlace.Id);
+
+                // Noitfy caller of their closest place
+                await Clients.Caller.SendAsync("YourPlace", new
+                {
+                    placeId = closestPlace.Id,
+                    placeName = closestPlace.Name
+                });
             }
 
             // Send updates for ALL places
@@ -53,7 +71,8 @@ namespace VibeCheck.Server.Hubs
                 {
                     placeId = place.Id,
                     placeName = place.Name,
-                    count
+                    count,
+                    imageUrl = place.ImageUrl
                     
                 });
             }

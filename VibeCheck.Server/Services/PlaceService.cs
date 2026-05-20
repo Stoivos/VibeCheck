@@ -34,9 +34,9 @@ public class PlaceService
         {
             _db.Places.AddRange(new List<Places>
         {
-            new() { Name = "Rex", Latitude = 63.8258, Longitude = 20.2630, RadiusMeters = 80, ImageUrl = "/images/Rex.jpg"},
-            new() { Name = "Allstar", Latitude = 63.8265, Longitude = 20.2655, RadiusMeters = 80, ImageUrl = "/images/Allstar.png"},
-            new() { Name = "O'Learys", Latitude = 63.8249, Longitude = 20.2612, RadiusMeters = 80, ImageUrl = "/images/Olles.jpg"}
+            new() { Name = "Rex", Latitude = 63.8258, Longitude = 20.2630, RadiusMeters = 80, ImageUrl = "/Rex.jpg"},
+            new() { Name = "Allstar", Latitude = 63.8265, Longitude = 20.2655, RadiusMeters = 80, ImageUrl = "/Allstar.png"},
+            new() { Name = "O'Learys", Latitude = 63.8249, Longitude = 20.2612, RadiusMeters = 80, ImageUrl = "/Olles.jpg"}
         });
 
             await _db.SaveChangesAsync();

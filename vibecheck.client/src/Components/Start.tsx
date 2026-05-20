@@ -4,87 +4,79 @@ import "./Start.css";
 
 function Start() {
 
-    const { crowd } = useCrowdHub();
+    const { crowd, myPlace } = useCrowdHub();
     const { position, error } = useLocation();
 
     const hasLocation = !!position;
     const blocked = !!error;
 
-return (
-    <div>
-        <h1>Vibecheck</h1>
-
-        {/*Show popup if location is not available and not blocked*/}
-
-        {!hasLocation && !blocked && (
-            <div className="popup">
-                <h2>För att börja vibechecka</h2>
-                <p>Behöver du tillåta platsinfo</p>
-            </div>
-        )}
-
-        {/*Show popup if location access is blocked*/}
-
-        {blocked && (
-            <div className="popup error">
-                <h2>Plats åtkomst nekad</h2>
-                <p>Slå på location i din browser för att använda Vibecheck</p>
-            </div>
-        )}
-
-        {/*sucess*/}
-        {hasLocation && (
-            <div>
-
-                <div className="logo">
-                    LOGGA
+    return (
+        <>
+            {!hasLocation && !blocked && (
+                <div className="popup">
+                    <h2>För att börja vibechecka</h2>
+                    <p>Behöver du tillåta platsinfo</p>
                 </div>
+            )}
 
-                <h2 style={{ textAlign: "center" }}>Live crowd</h2>
+            {blocked && (
+                <div className="popup error">
+                    <h2>Plats åtkomst nekad</h2>
+                    <p>Slå på location i din browser för att använda Vibecheck</p>
+                </div>
+            )}
 
-                {/* List of places */}
-                <div className="places">
-                    {crowd.map((p) => (
-                        <div key={p.placeId} className="place-card">
-
-                            {/* Image section */}
-                            <div className="place-image" style={{ backgroundImage: `url(${p.imageUrl})` }}>
-                                {p.placeName.toUpperCase()}
-                            </div>
-
-                            {/* Content */}
-                            <div className="place-content">
-                                <h3>{p.placeName}</h3>
-
-                                <div className="place-footer">
-
-                                    <div className="user-count">
-                                        <div className="user-icon" />
-                                        <span>{p.count}</span>
-                                    </div>
-
-                                    <span>people here</span>
-                                </div>
-                            </div>
-
+            {hasLocation && (
+                <div className="app">
+                    <div className="header">
+                        <div className="logo">
+                            <img src="/images/logo.png" alt="Vibecheck" />
                         </div>
-                    ))}
+                        <h2 className="page-title">Live crowd</h2>
+                    </div>
+
+                    
+
+                    <div className="content">
+
+                        {crowd.length === 0 && (
+                            <p>Loading places...</p>
+                        )}
+
+                        {myPlace && (
+                            <div className="my-place">        
+                                <span className="my-place-label">Du är på</span>
+                                <span className="my-place-name">{myPlace.placeName}</span>
+                            </div>
+                        )}
+
+                        <div className="places">
+                            {crowd.map((p) => (
+                                <div key={p.placeId} className="place-card">
+                                    <div className="place-image" style={{ backgroundImage: `url(${p.imageUrl})` }}>
+                                        <div className="place-image-title">{p.placeName}</div>
+                                    </div>
+                                    <div className="place-content">
+                                        <div className="place-footer">
+                                            <div className="user-count">
+                                                <div className="user-icon" />
+                                                <span>{p.count} här nu</span>
+                                            </div>
+                                            <div className="live-status">LIVE</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        <div className="location">        {/* Coordinates */}
+                            <p>{position?.latitude.toFixed(5)}, {position?.longitude.toFixed(5)}</p>
+                        </div>
+                    </div>
                 </div>
-
-                {/* Location */}
-                <div className="location">
-                    <p>Din position:</p>
-                    <p>
-                        {position.latitude.toFixed(5)},{" "}
-                        {position.longitude.toFixed(5)}
-                    </p>
-                </div>
-
-            </div>
-        )}
-
-    </div>
-);
+            )}
+        </>
+    );
 }
 
 export default Start;
