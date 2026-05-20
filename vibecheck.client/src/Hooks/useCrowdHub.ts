@@ -7,6 +7,7 @@ export type CrowdUpdate = {
     placeId: number;
     placeName: string;
     count: number;
+    imageUrl: string;
 };
 
 export function useCrowdHub() {

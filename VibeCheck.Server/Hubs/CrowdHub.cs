@@ -54,6 +54,7 @@ namespace VibeCheck.Server.Hubs
                     placeId = place.Id,
                     placeName = place.Name,
                     count
+                    
                 });
             }
         }

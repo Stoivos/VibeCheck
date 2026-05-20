@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Numerics;
 using VibeCheck.Server.Data;
 using VibeCheck.Server.Models;
 
@@ -7,35 +6,7 @@ namespace VibeCheck.Server.Services;
 
 public class PlaceService
 {
-    private readonly VibeCheckDbContext _db;
-
-    private readonly List<Places> _places = new()
-    {
-        new Places
-        {
-            Id = 1,
-            Name = "Rex",
-            Latitude = 63.8258,
-            Longitude = 20.2630,
-            RadiusMeters = 80
-        },
-        new Places
-        {
-            Id = 2,
-            Name = "Allstar",
-            Latitude = 63.8265,
-            Longitude = 20.2655,
-            RadiusMeters = 80
-        },
-        new Places
-        {
-            Id = 3,
-            Name = "O'Learys",
-            Latitude = 63.8249,
-            Longitude = 20.2612,
-            RadiusMeters = 80
-        }
-    };
+    private readonly VibeCheckDbContext _db;   
 
     public PlaceService(VibeCheckDbContext db)
     {
@@ -63,9 +34,9 @@ public class PlaceService
         {
             _db.Places.AddRange(new List<Places>
         {
-            new() { Name = "Rex", Latitude = 63.8258, Longitude = 20.2630, RadiusMeters = 80 },
-            new() { Name = "Allstar", Latitude = 63.8265, Longitude = 20.2655, RadiusMeters = 80 },
-            new() { Name = "O'Learys", Latitude = 63.8249, Longitude = 20.2612, RadiusMeters = 80 }
+            new() { Name = "Rex", Latitude = 63.8258, Longitude = 20.2630, RadiusMeters = 80, ImageUrl = "/images/Rex.jpg"},
+            new() { Name = "Allstar", Latitude = 63.8265, Longitude = 20.2655, RadiusMeters = 80, ImageUrl = "/images/Allstar.png"},
+            new() { Name = "O'Learys", Latitude = 63.8249, Longitude = 20.2612, RadiusMeters = 80, ImageUrl = "/images/Olles.jpg"}
         });
 
             await _db.SaveChangesAsync();

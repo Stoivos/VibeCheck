@@ -22,5 +22,8 @@ public class Places
     [Column("pl_radius")]
     public double RadiusMeters { get; set; }
 
+    [Column("pl_imageurl")]
+    public string? ImageUrl { get; set; }
+
     public List<Presence> Presences { get; set; } = [];
 }

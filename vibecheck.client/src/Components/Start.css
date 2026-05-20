@@ -1,0 +1,140 @@
+/* ===== Base ===== */
+
+body {
+    margin: 0;
+    font-family: "Hando Soft", system-ui, sans-serif;
+    background: #f6f7f5;
+    color: #1f1f1f;
+}
+
+/* ===== Header ===== */
+
+h1 {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 28px;
+    font-weight: 600;
+}
+
+/* ===== Popup ===== */
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 85%;
+    max-width: 360px;
+    background: white;
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+    text-align: center;
+    border: 2px solid #93BE65;
+}
+
+    .popup h2 {
+        margin: 0 0 10px 0;
+    }
+
+    .popup p {
+        opacity: 0.7;
+    }
+
+    .popup.error {
+        border: 2px solid #ff5a5a;
+    }
+
+/* ===== Places Grid ===== */
+
+.places {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 16px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+/* ===== Place Card ===== */
+
+.place-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    transition: transform 0.15s ease;
+}
+
+    .place-card:hover {
+        transform: translateY(-3px);
+    }
+
+/* Image placeholder */
+.place-image {
+    height: 140px;
+    background: linear-gradient(135deg, #93BE65, #b7e08a);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+/* Content */
+.place-content {
+    padding: 14px 16px;
+}
+
+    .place-content h3 {
+        margin: 0;
+        font-size: 18px;
+    }
+
+/* Footer inside card */
+.place-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.user-count {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* little user icon placeholder */
+.user-icon {
+    background-image: url('../assets/UserIcon.png');
+    width: 18px;
+    height: 18px;
+    background: #93BE65;
+    border-radius: 50%;
+}
+
+/* ===== Location ===== */
+
+.location {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 13px;
+    opacity: 0.6;
+}
+
+/* ===== Logo ===== */
+
+.logo {
+    background-image: url('../assets/logo.png');
+    text-align: center;
+    font-size: 20px;
+    font-weight: 700;
+    margin-top: 10px;
+    color: #93BE65;
+}

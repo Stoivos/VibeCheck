@@ -35,19 +35,43 @@ return (
         {/*sucess*/}
         {hasLocation && (
             <div>
-                <h2>Live crowd</h2>
+
+                <div className="logo">
+                    LOGGA
+                </div>
+
+                <h2 style={{ textAlign: "center" }}>Live crowd</h2>
 
                 {/* List of places */}
-                
                 <div className="places">
                     {crowd.map((p) => (
                         <div key={p.placeId} className="place-card">
-                            <h3>{p.placeName}</h3>
-                            <p>{p.count} personer här</p>
+
+                            {/* Image section */}
+                            <div className="place-image" style={{ backgroundImage: `url(${p.imageUrl})` }}>
+                                {p.placeName.toUpperCase()}
+                            </div>
+
+                            {/* Content */}
+                            <div className="place-content">
+                                <h3>{p.placeName}</h3>
+
+                                <div className="place-footer">
+
+                                    <div className="user-count">
+                                        <div className="user-icon" />
+                                        <span>{p.count}</span>
+                                    </div>
+
+                                    <span>people here</span>
+                                </div>
+                            </div>
+
                         </div>
                     ))}
                 </div>
 
+                {/* Location */}
                 <div className="location">
                     <p>Din position:</p>
                     <p>
