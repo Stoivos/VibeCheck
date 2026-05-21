@@ -15,13 +15,24 @@ export function useCrowdHub() {
 
     const [myPlace, setMyPlace] = useState<{ placeId: number; placeName: string } | null>(null);
 
+    const [isConnecting, setIsConnecting] = useState(true);
+
     const { position } = useLocation();
 
-    const sessionId = useRef(crypto.randomUUID()).current;
+    const sessionId = useRef(
+        localStorage.getItem("sessionId") ?? (() => {
+            const id = crypto.randomUUID();
+            localStorage.setItem("sessionId", id);
+            return id;
+        })()
+    ).current;
 
     const positionRef = useRef(position);
 
     const alreadySentRef = useRef(false);
+
+    // Loading trigger: Connected + has position + has crowd data.
+    const isReady = !isConnecting && !!position && crowd.length > 0;
 
     // Keep ref updated
     useEffect(() => {
@@ -32,12 +43,16 @@ export function useCrowdHub() {
         const start = async () => {
             try {
                 if (connection.state === "Disconnected") {
-                    await connection.start(); // connection done here.
+                    await connection.start(); // connection done here.               
                 }
+
+                // for loading screen.
+                setIsConnecting(false);
 
                 // Listen for updates on user's place.
                 connection.off("YourPlace");
                 connection.on("YourPlace", (data) => {
+                    console.log("YourPlace mottagen:", data);
                     setMyPlace(data);
                 });
 
@@ -107,5 +122,5 @@ export function useCrowdHub() {
         return [...crowd].sort((a, b) => b.count - a.count);
     }, [crowd]);
 
-    return { crowd: sortedCrowd, myPlace };
+    return { crowd: sortedCrowd, myPlace, isReady };
 }

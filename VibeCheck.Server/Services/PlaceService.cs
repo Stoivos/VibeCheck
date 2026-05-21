@@ -13,6 +13,8 @@ public class PlaceService
         _db = db;
     }
 
+    // ---------- CRUD METHODS ----------
+
     // CREATE
     public async Task<Places> AddPlaceAsync(Places place)
     {

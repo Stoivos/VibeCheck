@@ -4,29 +4,39 @@ import "./Start.css";
 
 function Start() {
 
-    const { crowd, myPlace } = useCrowdHub();
+    const { crowd, myPlace, isReady } = useCrowdHub();
     const { position, error } = useLocation();
+
 
     const hasLocation = !!position;
     const blocked = !!error;
 
     return (
         <>
-            {!hasLocation && !blocked && (
+            {/* if connecting, show loading screen */}
+            {!isReady && (
+            <div className="loading-screen">
+                <img src="/images/logo.png" alt="Vibecheck" className="loading-logo" />
+                <p className="loading-text">Vibecheckar...</p>
+            </div>
+            )}
+            
+
+            {isReady && !hasLocation && !blocked && (
                 <div className="popup">
                     <h2>För att börja vibechecka</h2>
                     <p>Behöver du tillåta platsinfo</p>
                 </div>
             )}
 
-            {blocked && (
+            {isReady && blocked && (
                 <div className="popup error">
                     <h2>Plats åtkomst nekad</h2>
                     <p>Slå på location i din browser för att använda Vibecheck</p>
                 </div>
             )}
 
-            {hasLocation && (
+            {isReady && hasLocation && (
                 <div className="app">
                     <div className="header">
                         <div className="logo">

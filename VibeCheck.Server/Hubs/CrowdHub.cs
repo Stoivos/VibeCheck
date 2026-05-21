@@ -47,7 +47,7 @@ namespace VibeCheck.Server.Hubs
             var closestPlace = places
                         .OrderBy(p =>
                             _presenceService.GetDistance(lat, lng, p.Latitude, p.Longitude))
-                        .FirstOrDefault();
+                        .FirstOrDefault(); // Take closest for debugging, should be based on radius.
 
 
             if (closestPlace != null)
