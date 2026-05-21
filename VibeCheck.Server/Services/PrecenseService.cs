@@ -13,8 +13,7 @@ public class PresenceService
         _db = db;
     }
 
-    // calculate distance
-
+    // calculate distance between two lat/lng points using Haversine formula
     public double GetDistance(double lat1, double lon1, double lat2, double lon2)
     {
         const double R = 6371; // km

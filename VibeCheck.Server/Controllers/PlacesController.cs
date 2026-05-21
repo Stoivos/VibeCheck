@@ -1,12 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using VibeCheck.Server.Services;
 
-namespace VibeCheck.Server.Controllers
+namespace VibeCheck.Server.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class PlacesController : ControllerBase
 {
-    public class PlacesController : Controller
+    private readonly PlaceService _placeService;
+
+    public PlacesController(PlaceService placeService)
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+        _placeService = placeService;
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAll()
+    {
+        var places = await _placeService.GetAllPlacesAsync();
+        return Ok(places);
     }
 }

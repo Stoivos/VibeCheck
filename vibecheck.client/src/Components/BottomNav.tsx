@@ -14,7 +14,7 @@ function BottomNav() {
                 onClick={() => navigate("/")}
             >
                 <div className="nav-content">
-                <img src="/images/home-icon.svg" alt="List"/>
+                <img src="/images/home-icon.png" alt="List"/>
                 </div>
             </button>
 
@@ -23,7 +23,7 @@ function BottomNav() {
                 onClick={() => navigate("/map")}
             >
                 <div className="nav-content">
-                    <img src="/images/map-icon.svg" alt="Map" />
+                    <img src="/images/map-icon.png" alt="Map" />
                 </div>
             </button>
         </div>
