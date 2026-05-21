@@ -1,5 +1,6 @@
 import { useCrowdHub } from "../Hooks/useCrowdHub";
 import { useLocation } from "../Hooks/useLocation";
+import BottomNav from "./BottomNav";
 import "./Start.css";
 
 function Start() {
@@ -83,6 +84,7 @@ function Start() {
                             <p>{position?.latitude.toFixed(5)}, {position?.longitude.toFixed(5)}</p>
                         </div>
                     </div>
+                    <BottomNav />
                 </div>
             )}
         </>
