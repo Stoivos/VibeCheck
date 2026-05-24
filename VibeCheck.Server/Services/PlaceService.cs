@@ -91,7 +91,7 @@ public class PlaceService
             new() { Name = "Origo", Latitude = 63.81936, Longitude = 20.31661, RadiusMeters = 70, ImageUrl = "/images/Origo.jpg" },
             new() { Name = "The Bishop Arms", Latitude = 63.82610, Longitude = 20.26016, RadiusMeters = 80, ImageUrl = "/images/BishopArms.jpg" },
             new() { Name = "Rött", Latitude = 63.82337, Longitude = 20.30198, RadiusMeters = 70, ImageUrl = "/images/Rott.jpg" },
-            new() { Name = "E-Puben", Latitude = 63.81995, Longitude = 20.30534, RadiusMeters = 120, ImageUrl = "/images/Epuben.jpg" },
+            new() { Name = "E-Puben", Latitude = 63.81995, Longitude = 20.30534, RadiusMeters = 120, ImageUrl = "/images/Epuben.jpeg" },
             new() { Name = "Megazone", Latitude = 63.82543, Longitude = 20.26414, RadiusMeters = 80, ImageUrl = "/images/Megazone.jpg" },
             new() { Name = "Orangeriet", Latitude = 63.82542, Longitude = 20.26705, RadiusMeters = 80, ImageUrl = "/images/Orangeriet.jpg" }
         });

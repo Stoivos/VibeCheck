@@ -31,7 +31,8 @@ builder.Services.AddCors(options =>
         policy
             .WithOrigins(
                 "https://localhost:5173",
-                "http://localhost:5173"
+                "http://localhost:5173",
+                "http://localhost:5174"
             )
             .AllowAnyHeader()
             .AllowAnyMethod()
@@ -53,9 +54,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseCors("AllowFrontend");
-
 app.UseRouting();
+
+app.UseCors("AllowFrontend");
 
 app.UseAuthorization();
 
