@@ -32,27 +32,68 @@ public class PlaceService
 
         var exists = await _db.Places.AnyAsync();
 
+
+
+        /*  rex
+         *  63.825309006357756, 20.262765462484623
+         *  allstar
+         *  63.82654967140534, 20.26632501341085
+         *  olles
+         *  63.826299126240414, 20.265802275285285
+         *  sjöbris
+         *  63.82461586779715, 20.257485940394485
+         *  lion bar
+         *  63.824773761667956, 20.265137155738657
+         *  cinco
+         *  63.82650623063174, 20.258801315263252
+         * Lottas krog
+         * 63.82763095553177, 20.264141244597507
+         * Gröna älgen
+         * 63.823248104193794, 20.27939008642688
+         * Gps
+         * 63.826581254379, 20.264281026902733
+         * Båten
+         * 63.82192517315507, 20.269529755738454
+         * Facit
+         * 63.82577749739429, 20.264572613410778
+         * Rouge
+         * 63.81256417383313, 20.31471381575446
+         * Origo
+         * 63.819361784324116, 20.316609455738316
+         * The bishop arms
+         * 63.82609579653868, 20.260155426902656
+         * Rött
+         * 63.82337020265799, 20.301983538541958
+         * E-puben
+         * 63.81994628113486, 20.30533709806625
+         * Megazone
+         * 63.825433193831756, 20.26414267293521
+         * Orangeriet
+         * 63.82541699023122, 20.2670525531975
+         */
+
         if (!exists)
         {
             _db.Places.AddRange(new List<Places>
         {
-            new() { Name = "Rex", Latitude = 63.8258, Longitude = 20.2630, RadiusMeters = 80, ImageUrl = "/images/Rex.jpg"},
-            new() { Name = "Allstar", Latitude = 63.8265, Longitude = 20.2655, RadiusMeters = 80, ImageUrl = "/images/Allstar.png"},
-            new() { Name = "O'Learys", Latitude = 63.8249, Longitude = 20.2612, RadiusMeters = 80, ImageUrl = "/images/Olles.jpg"},
-            new() { Name = "Sjöbris", Latitude = 63.8176, Longitude = 20.2494, RadiusMeters = 90, ImageUrl = "/Sjobris.jpg" },
-            new() { Name = "Lion Bar", Latitude = 63.8253, Longitude = 20.2638, RadiusMeters = 70, ImageUrl = "/LionBar.jpg" },
-            new() { Name = "Cinco", Latitude = 63.8256, Longitude = 20.2645, RadiusMeters = 70, ImageUrl = "/Cinco.jpg" },
-            new() { Name = "Lottas Krog", Latitude = 63.8270, Longitude = 20.2658, RadiusMeters = 80, ImageUrl = "/Lottas.jpg" },
-            new() { Name = "Gröna Älgen", Latitude = 63.8244, Longitude = 20.2599, RadiusMeters = 80, ImageUrl = "/GronaAlgen.jpg" },
-            new() { Name = "GP's", Latitude = 63.8259, Longitude = 20.2671, RadiusMeters = 70, ImageUrl = "/Gps.jpg" },
-            new() { Name = "Båten", Latitude = 63.8206, Longitude = 20.2557, RadiusMeters = 100, ImageUrl = "/Baten.jpg" },
-            new() { Name = "Facit", Latitude = 63.8252, Longitude = 20.2634, RadiusMeters = 70, ImageUrl = "/Facit.jpg" },
-            new() { Name = "Rouge", Latitude = 63.8255, Longitude = 20.2648, RadiusMeters = 70, ImageUrl = "/Rouge.jpg" },
-            new() { Name = "Origo", Latitude = 63.8250, Longitude = 20.2631, RadiusMeters = 70, ImageUrl = "/Origo.jpg" },
-            new() { Name = "The Bishop Arms", Latitude = 63.8281, Longitude = 20.2682, RadiusMeters = 80, ImageUrl = "/BishopArms.jpg" },
-            new() { Name = "Rött", Latitude = 63.8248, Longitude = 20.2627, RadiusMeters = 70, ImageUrl = "/Rott.jpg" },
-            new() { Name = "E-Puben", Latitude = 63.8195, Longitude = 20.3054, RadiusMeters = 120, ImageUrl = "/Epuben.jpg" },
-            new() { Name = "Megazone", Latitude = 63.8256, Longitude = 20.2638, RadiusMeters = 80, ImageUrl = "/Megazone.jpg"},
+            new() { Name = "Rex", Latitude = 63.82531, Longitude = 20.26277, RadiusMeters = 80, ImageUrl = "/images/Rex.jpg" },
+            new() { Name = "Allstar", Latitude = 63.82655, Longitude = 20.26633, RadiusMeters = 80, ImageUrl = "/images/Allstar.png" },
+            new() { Name = "O'Learys", Latitude = 63.82630, Longitude = 20.26580, RadiusMeters = 80, ImageUrl = "/images/Olles.jpg" },
+            new() { Name = "Sjöbris", Latitude = 63.82462, Longitude = 20.25749, RadiusMeters = 90, ImageUrl = "/images/Sjobris.jpg" },
+            new() { Name = "Lion Bar", Latitude = 63.82477, Longitude = 20.26514, RadiusMeters = 70, ImageUrl = "/images/LionBar.jpg" },
+            new() { Name = "Cinco", Latitude = 63.82651, Longitude = 20.25880, RadiusMeters = 70, ImageUrl = "/images/Cinco.jpg" },
+            new() { Name = "Lottas Krog", Latitude = 63.82763, Longitude = 20.26414, RadiusMeters = 80, ImageUrl = "/images/Lottas.jpg" },
+            new() { Name = "Gröna Älgen", Latitude = 63.82325, Longitude = 20.27939, RadiusMeters = 80, ImageUrl = "/images/GronaAlgen.jpg" },
+            new() { Name = "GP's", Latitude = 63.82658, Longitude = 20.26428, RadiusMeters = 70, ImageUrl = "/images/Gps.jpg" },
+            new() { Name = "Båten", Latitude = 63.82193, Longitude = 20.26953, RadiusMeters = 100, ImageUrl = "/images/Baten.jpg" },
+            new() { Name = "Facit", Latitude = 63.82578, Longitude = 20.26457, RadiusMeters = 70, ImageUrl = "/images/Facit.jpg" },
+            new() { Name = "Rouge", Latitude = 63.81256, Longitude = 20.31471, RadiusMeters = 70, ImageUrl = "/images/Rouge.jpg" },
+            new() { Name = "Origo", Latitude = 63.81936, Longitude = 20.31661, RadiusMeters = 70, ImageUrl = "/images/Origo.jpg" },
+            new() { Name = "The Bishop Arms", Latitude = 63.82610, Longitude = 20.26016, RadiusMeters = 80, ImageUrl = "/images/BishopArms.jpg" },
+            new() { Name = "Rött", Latitude = 63.82337, Longitude = 20.30198, RadiusMeters = 70, ImageUrl = "/images/Rott.jpg" },
+            new() { Name = "E-Puben", Latitude = 63.81995, Longitude = 20.30534, RadiusMeters = 120, ImageUrl = "/images/Epuben.jpg" },
+            new() { Name = "Megazone", Latitude = 63.82543, Longitude = 20.26414, RadiusMeters = 80, ImageUrl = "/images/Megazone.jpg" },
+            new() { Name = "Orangeriet", Latitude = 63.82542, Longitude = 20.26705, RadiusMeters = 80, ImageUrl = "/images/Orangeriet.jpg" }
         });
 
             await _db.SaveChangesAsync();

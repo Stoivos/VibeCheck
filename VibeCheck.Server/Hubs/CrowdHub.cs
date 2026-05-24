@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR;
+using VibeCheck.Server.Models;
 using VibeCheck.Server.Services;
 namespace VibeCheck.Server.Hubs
 {
@@ -31,6 +32,19 @@ namespace VibeCheck.Server.Hubs
             }
             await base.OnConnectedAsync();
         }
+
+        // fix send postion with this after testing to only get places in radius + closest place if multiple in radius
+        //var closestPlace = places
+        //.OrderBy(p => _presenceService.GetDistance(lat, lng, p.Latitude, p.Longitude))
+        //.FirstOrDefault();
+
+        //// add radius check.
+        //if (closestPlace == null) return;
+
+        //var distanceKm = _presenceService.GetDistance(lat, lng, closestPlace.Latitude, closestPlace.Longitude);
+        //        var radiusKm = closestPlace.RadiusMeters / 1000.0;
+
+        //if (distanceKm > radiusKm) return; // too far from any place, ignore
 
 
 
