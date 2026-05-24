@@ -33,42 +33,30 @@ namespace VibeCheck.Server.Hubs
             await base.OnConnectedAsync();
         }
 
-        // fix send postion with this after testing to only get places in radius + closest place if multiple in radius
-        //var closestPlace = places
-        //.OrderBy(p => _presenceService.GetDistance(lat, lng, p.Latitude, p.Longitude))
-        //.FirstOrDefault();
-
-        //// add radius check.
-        //if (closestPlace == null) return;
-
-        //var distanceKm = _presenceService.GetDistance(lat, lng, closestPlace.Latitude, closestPlace.Longitude);
-        //        var radiusKm = closestPlace.RadiusMeters / 1000.0;
-
-        //if (distanceKm > radiusKm) return; // too far from any place, ignore
-
-
-
         // Send position from client, find closest place and update presence
         public async Task SendPosition(string sessionId, double lat, double lng)
         {
             // Cleanup old presence records
             await _presenceService.CleanupAsync();
 
-
             var places = await _placeService.GetAllPlacesAsync();
 
-
+            // PRODUCTION: Radius + closest within radius
             var closestPlace = places
-                        .OrderBy(p =>
-                            _presenceService.GetDistance(lat, lng, p.Latitude, p.Longitude))
-                        .FirstOrDefault(); // Take closest for debugging, should be based on radius.
+                .Where(p => _presenceService.GetDistance(lat, lng, p.Latitude, p.Longitude) <= p.RadiusMeters / 1000.0)
+                .OrderBy(p => _presenceService.GetDistance(lat, lng, p.Latitude, p.Longitude))
+                .FirstOrDefault();
 
+            // DEBUG: Always pick closest regardless of radius (comment out above, uncomment below)
+            //var closestPlace = places
+            //    .OrderBy(p => _presenceService.GetDistance(lat, lng, p.Latitude, p.Longitude))
+            //    .FirstOrDefault();
 
             if (closestPlace != null)
             {
                 await _presenceService.UpdatePresenceAsync(sessionId, closestPlace.Id);
 
-                // Noitfy caller of their closest place
+                // Notify caller of their closest place
                 await Clients.Caller.SendAsync("YourPlace", new
                 {
                     placeId = closestPlace.Id,
@@ -87,7 +75,6 @@ namespace VibeCheck.Server.Hubs
                     placeName = place.Name,
                     count,
                     imageUrl = place.ImageUrl
-                    
                 });
             }
         }

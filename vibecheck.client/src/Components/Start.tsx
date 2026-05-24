@@ -1,27 +1,39 @@
+import { useState } from "react";
 import { useCrowdHub } from "../Hooks/useCrowdHub";
 import { useLocation } from "../Hooks/useLocation";
 import BottomNav from "./BottomNav";
 import "./Start.css";
 
-function Start() {
+type Filter = "alla" | "folkigt" | "lugnt";
 
+function Start() {
     const { crowd, myPlace, isReady } = useCrowdHub();
     const { position, error } = useLocation();
-
+    const [search, setSearch] = useState("");
+    const [filter, setFilter] = useState<Filter>("alla");
 
     const hasLocation = !!position;
     const blocked = !!error;
+
+    const myPlaceData = crowd.find(p => p.placeId === myPlace?.placeId);
+
+    const filteredCrowd = crowd
+        .filter(p => p.placeName.toLowerCase().includes(search.toLowerCase()))
+        .filter(p => {
+            if (filter === "folkigt") return p.count >= 5;
+            if (filter === "lugnt") return p.count < 5;
+            return true;
+        });
 
     return (
         <>
             {/* if connecting, show loading screen */}
             {!isReady && (
-            <div className="loading-screen">
-                <img src="/images/logo.png" alt="Vibecheck" className="loading-logo" />
-                <p className="loading-text">Vibecheckar...</p>
-            </div>
+                <div className="loading-screen">
+                    <img src="/images/logo.png" alt="Vibecheck" className="loading-logo" />
+                    <p className="loading-text">Vibecheckar...</p>
+                </div>
             )}
-            
 
             {isReady && !hasLocation && !blocked && (
                 <div className="popup">
@@ -33,7 +45,7 @@ function Start() {
             {isReady && blocked && (
                 <div className="popup error">
                     <h2>Plats åtkomst nekad</h2>
-                    <p>Slå på location i din browser för att använda Vibecheck</p>
+                    <p>Slå på location i din browser för att använda Vibecheck</p> 
                 </div>
             )}
 
@@ -44,25 +56,56 @@ function Start() {
                             <img src="/images/logo.png" alt="Vibecheck" />
                         </div>
                         <h2 className="page-title">Live crowd</h2>
-                    </div>
 
-                    
+                        {myPlaceData ? (
+                            <div
+                                className="my-place-card"
+                                style={{ backgroundImage: `url(${myPlaceData.imageUrl})` }}
+                            >
+                                <div className="my-place-overlay" />
+                                <div className="my-place-info">
+                                    <span className="my-place-label">Du är på</span>
+                                    <span className="my-place-name">{myPlaceData.placeName}</span>
+                                    <span className="my-place-count">{myPlaceData.count} här nu</span>
+                                </div>
+                            </div>
+                        ) : (
+                            <div className="no-place-card">
+                                <img className="no-place-icon" src="/images/noplace.png"></img>
+                                <span className="no-place-text">Hemma? Äh nu tar vi helg!</span>
+                            </div>
+                        )}
+                    </div>
 
                     <div className="content">
 
-                        {crowd.length === 0 && (
-                            <p>Loading places...</p>
-                        )}
-
-                        {myPlace && (
-                            <div className="my-place">        
-                                <span className="my-place-label">Du är på</span>
-                                <span className="my-place-name">{myPlace.placeName}</span>
+                        {/* Search and filter together */}
+                        <div className="search-filter">
+                            <div className="search-bar">
+                                <img src="/images/search-icon.png" alt="" className="search-icon" />
+                                <input
+                                    type="text"
+                                    placeholder="Sök krog..."
+                                    value={search}
+                                    onChange={e => setSearch(e.target.value)}
+                                />
                             </div>
-                        )}
+                            <div className="filter-bar">
+                                {(["alla", "folkigt", "lugnt"] as Filter[]).map(f => (
+                                    <button
+                                        key={f}
+                                        className={`filter-btn ${filter === f ? "active" : ""}`}
+                                        onClick={() => setFilter(f)}
+                                    >
+                                        {f.charAt(0).toUpperCase() + f.slice(1)}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
 
+                        {/* List all places with crowd data. */}
                         <div className="places">
-                            {crowd.map((p) => (
+                            {filteredCrowd.map((p) => (
                                 <div key={p.placeId} className="place-card">
                                     <div className="place-image" style={{ backgroundImage: `url(${p.imageUrl})` }}>
                                         <div className="place-image-title">{p.placeName}</div>

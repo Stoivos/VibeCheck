@@ -37,3 +37,34 @@
     font-size: 18px;
     letter-spacing: 0.5px;
 }
+
+.map-search {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 14px;
+    padding: 10px 14px;
+    margin-top: 12px;
+}
+
+    .map-search img {
+        width: 18px;
+        height: 18px;
+        stroke: white;
+        flex-shrink: 0;
+    }
+
+    .map-search input {
+        background: none;
+        border: none;
+        outline: none;
+        color: white;
+        font-size: 15px;
+        width: 100%;
+        font-family: inherit;
+    }
+
+        .map-search input::placeholder {
+            color: rgba(255,255,255,0.7);
+        }

@@ -24,7 +24,7 @@ body {
 .header {
     position: relative;
     background: #93BE65;
-    padding: 28px 20px 90px 20px;
+    padding: 28px 20px 20px 20px; 
     overflow: hidden;
 }
 
@@ -257,4 +257,163 @@ body {
     font-size: 12px;
     opacity: 0.5;
     padding-bottom: 20px;
+}
+
+/* ===== Search ===== */
+
+/* ===== Search ===== */
+
+.search-bar {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    background: rgba(147, 190, 101, 0.08);
+    border: 1.5px solid rgba(147, 190, 101, 0.25);
+    border-radius: 14px;
+    padding: 10px 14px;
+    gap: 10px;
+}
+
+    .search-bar img {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+        opacity: 0.5;
+    }
+
+    .search-bar input {
+        background: none;
+        border: none;
+        outline: none;
+        color: #1f1f1f;
+        font-size: 15px;
+        width: 100%;
+        font-family: inherit;
+    }
+
+        .search-bar input::placeholder {
+            color: rgba(31, 31, 31, 0.4);
+        }
+
+/* ===== Filter ===== */
+
+.filter-bar {
+    display: flex;
+    gap: 8px;
+    padding: 16px 16px 16px;
+}
+
+.filter-btn {
+    padding: 8px 18px;
+    border-radius: 20px;
+    border: 2px solid #e0e0e0;
+    background: white;
+    color: #888;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+    .filter-btn.active {
+        background: #93BE65;
+        border-color: #93BE65;
+        color: white;
+    }
+
+/* ===== My Place Card ===== */
+
+.my-place-card {
+    position: relative;
+    margin: 16px 0 0 0;
+    border-radius: 20px;
+    overflow: hidden;
+    height: 130px;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    z-index: 2;
+}
+
+
+.my-place-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.65), rgba(0,0,0,0.1));
+}
+
+.my-place-info {
+    position: absolute;
+    bottom: 16px;
+    left: 18px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.my-place-label {
+    color: rgba(255,255,255,0.8);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.my-place-name {
+    color: white;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.my-place-count {
+    color: #93BE65;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* ===== Content padding ===== */
+
+.content {
+    margin-top: 0;
+    position: relative;
+    z-index: 5;
+    padding-bottom: 100px;
+}
+
+
+/* ===== Search ===== */
+
+.search-filter {
+    padding: 16px 16px 0 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+
+/* ===== No Place Card ===== */
+
+.no-place-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 16px 0 0 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 18px 20px;
+}
+
+.no-place-icon {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+}
+
+.no-place-text {
+    color: white;
+    font-size: 15px;
+    font-weight: 500;
+    opacity: 0.9;
 }

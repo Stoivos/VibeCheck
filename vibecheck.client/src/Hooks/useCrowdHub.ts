@@ -60,6 +60,8 @@ export function useCrowdHub() {
                 connection.off("ReceiveCrowdUpdate");
                 connection.on("ReceiveCrowdUpdate", (data: CrowdUpdate) => {
                     setCrowd(prev => {
+                        const existing = prev.find(x => x.placeId === data.placeId);
+                        if (existing && existing.count === data.count) return prev; // No rerender if count hasn't changed.
                         const filtered = prev.filter(x => x.placeId !== data.placeId);
                         return [...filtered, data];
                     });
