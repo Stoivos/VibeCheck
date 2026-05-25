@@ -85,7 +85,7 @@ export function useCrowdHub() {
         };
     }, []);
 
-    // Invokes backend if position changes, every 5 seconds.
+    // Invokes backend if position changes
     useEffect(() => {
         if (!position) return;
 
