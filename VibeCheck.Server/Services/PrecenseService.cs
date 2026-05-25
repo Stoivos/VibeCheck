@@ -80,4 +80,16 @@ public class PresenceService
 
         await _db.SaveChangesAsync();
     }
+
+    // Remove simulationdata.
+    public async Task ExpireSessionAsync(string sessionId)
+    {
+        var presence = await _db.Presences
+            .FirstOrDefaultAsync(p => p.SessionId == sessionId);
+        if (presence != null)
+        {
+            _db.Presences.Remove(presence);
+            await _db.SaveChangesAsync();
+        }
+    }
 }

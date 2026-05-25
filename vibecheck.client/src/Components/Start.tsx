@@ -15,6 +15,28 @@ function Start() {
     const hasLocation = !!position;
     const blocked = !!error;
 
+    // Simulation buttons for testing. 
+    const startSimulation = async () => {
+        try {
+            await fetch("http://localhost:5292/api/simulate/start", {
+                method: "POST"
+            });
+        } catch (err) {
+            console.error("Kunde inte starta simulering", err);
+        }
+    };
+
+    const stopSimulation = async () => {
+        try {
+            await fetch("http://localhost:5292/api/simulate/stop", {
+                method: "POST"
+            });
+        } catch (err) {
+            console.error("Kunde inte stoppa simulering", err);
+        }
+    };
+
+
     const myPlaceData = crowd.find(p => p.placeId === myPlace?.placeId);
 
     const filteredCrowd = crowd
@@ -130,6 +152,16 @@ function Start() {
                     <BottomNav />
                 </div>
             )}
+            <div className="dev-controls">
+                <button className="dev-btn start" onClick={startSimulation}>
+                    Start simulation
+                </button>
+
+                <button className="dev-btn stop" onClick={stopSimulation}>
+                    Stop simulation
+                </button>
+            </div>
+
         </>
     );
 }

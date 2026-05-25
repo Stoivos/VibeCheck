@@ -42,15 +42,15 @@ namespace VibeCheck.Server.Hubs
             var places = await _placeService.GetAllPlacesAsync();
 
             // PRODUCTION: Radius + closest within radius
-            var closestPlace = places
-                .Where(p => _presenceService.GetDistance(lat, lng, p.Latitude, p.Longitude) <= p.RadiusMeters / 1000.0)
-                .OrderBy(p => _presenceService.GetDistance(lat, lng, p.Latitude, p.Longitude))
-                .FirstOrDefault();
-
-            // DEBUG: Always pick closest regardless of radius (comment out above, uncomment below)
             //var closestPlace = places
+            //    .Where(p => _presenceService.GetDistance(lat, lng, p.Latitude, p.Longitude) <= p.RadiusMeters / 1000.0)
             //    .OrderBy(p => _presenceService.GetDistance(lat, lng, p.Latitude, p.Longitude))
             //    .FirstOrDefault();
+
+            // DEBUG: Always pick closest regardless of radius (comment out above, uncomment below)
+            var closestPlace = places
+                .OrderBy(p => _presenceService.GetDistance(lat, lng, p.Latitude, p.Longitude))
+                .FirstOrDefault();
 
             if (closestPlace != null)
             {
